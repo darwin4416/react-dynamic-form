@@ -1,12 +1,14 @@
 .container{
   width:60%;
   height:auto;
+  margin-top:20px;
   background-color:#F3F3F3;
   padding:30px;
   font-family:sans-serif;
   color:#5D6D7E;
   margin:0 auto;
 }
+/*page heading style*/
 .header{
   display:flex;
   flex-direction: row;
@@ -44,6 +46,7 @@
   border-radius:3px;
   background-color: #eeeded;
 }
+/*page heading ends*/
 .ro{
   display:flex;
   flex-direction:row;
@@ -203,6 +206,7 @@
   font-size:22px;
   border:none;
   border-radius:5px;
+  cursor:pointer;
 }
 #submit:focus{
   border-radius:5px;
@@ -213,7 +217,46 @@
 
 /*small devices*/
 @media (max-width:600px){
-  .checkbox{
+  .header{
+    display:block;
+    padding:0;
+    margin:0;
+    text-align: left;
+  }
+  .col-h{
+    margin:0;
+    padding:10px;
+    text-align: left;
+  }
+  .col-h div{
+    margin:0;
+  }
+  .container{
+    margin:0;
+    padding:5px;
+    width:100%;
+    box-sizing: border-box;
+  }
+  .label{
+    width:100%;
+  }
+ .ro{
+   display:block;
+   width:100%;
+   box-sizing: border-box;
+ }
+  .col-1,#btn-section,.checkbox{
     display:none;
   }
+  .col-2{
+    width:80%;
+    padding:0;
+    display: block;
+  }
+  .col-3{
+    display:block;
+    padding:0;
+    width:10%;
+  }
+  
 }

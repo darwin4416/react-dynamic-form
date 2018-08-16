@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import SecHeading from './Sec-heading/SecHeading';
 import Header from './Header/Header';
@@ -15,7 +14,7 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleAllSelection = this.handleAllSelection.bind(this);
     this.handleRemoveAll = this.handleRemoveAll.bind(this);
-  //  this.countActiveLabels -this.countActiveLabels.bind(this);
+
   }
   createUI() {
     return this.state.labelValues.map((el, i) =>
@@ -29,7 +28,10 @@ class App extends Component {
             </div>
           </div>
           <div className="col col-2">
-            <input type="text" className="label" placeholder={`Label ${i + 1}`} value={el || ''} onChange={this.handleChange.bind(this, i)} />
+            <input type="text" className="label"
+              placeholder={`Label ${i + 1}`} value={el || ''}
+              onChange={this.handleChange.bind(this, i)}
+            />
           </div>
           <div className="col col-3">
             <button type="button" className="btn-remove"
@@ -51,7 +53,6 @@ class App extends Component {
   }
 
   addClick() {
-
     let labelValues = [...this.state.labelValues];
     let labelStatus = [...this.state.labelStatus];
     labelValues.push(0);
@@ -60,9 +61,9 @@ class App extends Component {
       labelValues: labelValues,
       labelStatus: labelStatus
     });
-    if(this.state.isAllSelected){
+    if (this.state.isAllSelected) {
       this.setState({
-        isAllSelected:false
+        isAllSelected: false
       })
     }
   }
@@ -70,129 +71,99 @@ class App extends Component {
   removeClick(i) {
     let labelValues = [...this.state.labelValues];
     let labelStatus = [...this.state.labelStatus];
-    labelStatus.splice(i,1);
+    labelStatus.splice(i, 1);
     labelValues.splice(i, 1);
     this.setState({
       labelValues: labelValues,
-      labelStatus:labelStatus
+      labelStatus: labelStatus
     })
-    //this.countActiveLabels();
+
   }
   handleCheckbox(i) {
-   // this.countActiveLabels();
     let labelStatus = [...this.state.labelStatus];
     labelStatus[i] = !labelStatus[i];
     this.setState({
       labelStatus: labelStatus
     })
-  
   }
+
   handleAllSelection() {
-    if(this.state.labelValues.length>1){
-
-    
-    let labelStatus = [...this.state.labelStatus];
-    this.setState({
-      isAllSelected: !this.state.isAllSelected
-    }, () => {
-      if (this.state.isAllSelected) {
-
-
-        for (let i = 1; i < labelStatus.length; i++) {
-          labelStatus[i] = 1;
+    if (this.state.labelValues.length > 1) {
+      let labelStatus = [...this.state.labelStatus];
+      this.setState({
+        isAllSelected: !this.state.isAllSelected
+      }, () => {
+        if (this.state.isAllSelected) {
+          for (let i = 1; i < labelStatus.length; i++) {
+            labelStatus[i] = 1;
+          }
+          this.setState({
+            labelStatus: labelStatus,
+          })
         }
-        this.setState({
-          labelStatus: labelStatus,
-
-        })
-      }
-      else {
-
-        for (let i = 1; i < labelStatus.length; i++) {
-          labelStatus[i] = 0;
+        else {
+          for (let i = 1; i < labelStatus.length; i++) {
+            labelStatus[i] = 0;
+          }
+          this.setState({
+            labelStatus: labelStatus,
+          })
         }
-        this.setState({
-          labelStatus: labelStatus,
+      })
+    }
+  }
 
-        })
-      }
-    })
-  }
- // this.countActiveLabels();
-  }
-  // countActiveLabels(){
-  //   console.log("rannn",this.state.labelStatus);
-  //   let count=0;
-  //   for(let i = 0; i< this.state.labelStatus.length;i++){
-  //     if(this.state.labelStatus[i] ==1){
-  //       count++;
-  //     }
-  //   }
-  //  this.setState({
-  //    activeLabelCount:count
-  //  })
-  // }
   handleRemoveAll() {
     let labelStatus = [...this.state.labelStatus];
-    let labelValues = [...this.state.labelValues];
-
     let newStatus = labelStatus.filter((el) => el == 0);
     this.setState({
       labelStatus: newStatus,
       labelValues: newStatus
-    },()=>{
-      console.log(this.state.labelStatus,this.state.labelValues);
     });
   }
   handleSubmit(event) {
-    console.log(this.state.selectedLabel)
     event.preventDefault();
+    alert(this.state.labelValues);
   }
 
   render() {
     return (
       <div>
-          <Header/>
-          <br/>
-      <div className="container">
-      
-        <SecHeading
-          selectAll={this.handleAllSelection}
-          isAllSelected ={this.state.isAllSelected}
-          labelCount ={this.state.labelStatus}
-          removeAll = {this.handleRemoveAll}
-        />
-        <form onSubmit={this.handleSubmit}>
-          {this.createUI()}
-          <div className="ro ro-line">
-            <div className="col col-1 col-line">
-
+        <Header />
+        <div className="container">
+          <SecHeading
+            selectAll={this.handleAllSelection}
+            isAllSelected={this.state.isAllSelected}
+            labelCount={this.state.labelStatus}
+            removeAll={this.handleRemoveAll}
+          />
+          <form onSubmit={this.handleSubmit}>
+            {this.createUI()}
+            <div className="ro ro-line">
+              <div className="col col-1 col-line">
+              </div>
+              <div className="col col-2 col-line">
+                <hr className="line1" />
+              </div>
+              <div className="col col-3 col-line">
+              </div>
             </div>
-            <div className="col col-2 col-line">
-              <hr className="line1" />
+            <div className="ro">
+              <div className="col col-1">
+              </div>
+              <div className="col col-2 col-btn">
+                <button type="button" id="addLabel" onClick={this.addClick.bind(this)}>+ADD LABEL</button>
+              </div>
+              <div className="col col-3">
+              </div>
             </div>
-
-            <div className="col col-3 col-line">
-
+            <div className="ro">
+              <div className="col">
+                <button type="submit" id="submit">SUBMIT</button>
+              </div>
             </div>
-          </div>
-          <div className="ro">
-            <div className="col col-1">
-            </div>
-            <div className="col col-2 col-btn">
-              <button type="button" id="addLabel" onClick={this.addClick.bind(this)}>+ADD LABEL</button>
-            </div>
-            <div className="col col-3">
-            </div>
-          </div>
-
-          <div className="ro">
-            <div className="col">
-              <button type="submit" id="submit">SUBMIT</button>
-            </div>
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
       </div>
     );
   }
